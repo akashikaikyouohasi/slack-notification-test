@@ -22,3 +22,4 @@ go.work
 
 .aws-sam
 .DS_Store
+local_test/
