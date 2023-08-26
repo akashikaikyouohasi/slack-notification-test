@@ -6,9 +6,8 @@ This is a sample template for notification-test - Below is a brief explanation o
 .
 ├── Makefile                    <-- Make to automate build
 ├── README.md                   <-- This instructions file
-├── hello-world                 <-- Source code for a lambda function
-│   ├── main.go                 <-- Lambda function code
-│   └── main_test.go            <-- Unit tests
+├── notification-slack          <-- Source code for a lambda function
+│   └──  main.go                <-- Lambda function code
 └── template.yaml
 ```
 
