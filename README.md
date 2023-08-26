@@ -1,5 +1,10 @@
 
 ## go
+local_testでローカルで実行する
+
+```
+ go run main.go
+```
 
 ### メモ
 `x4 := "test"     // 文字列で初期化。varも省略する記法`

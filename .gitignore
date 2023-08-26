@@ -21,3 +21,4 @@
 go.work
 
 .aws-sam
+.DS_Store

@@ -28,12 +28,21 @@ Resources:
       Runtime: go1.x
       Architectures:
         - x86_64
-      # Events:
-      #   CatchAll:
-      #     Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-      #     Properties:
-      #       Path: /hello
-      #       Method: GET
+      Policies:
+      - SSMParameterReadPolicy:
+          ParameterName: "notification-slack/oauthtoken"
+      Events:
+        DeploySuceeded:
+          Type: CloudWatchEvent
+          Properties:
+            Pattern:
+              source:
+                - aws.codepipeline
+              detail-type:
+                - CodePipeline Pipeline Execution State Change
+              detail:
+                state:
+                - SUCCEEDED
       Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
         Variables:
           SLACK_OAUTH_TOKEN: !Ref SlackOAuthToken
