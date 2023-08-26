@@ -11,12 +11,20 @@ Globals:
     Timeout: 5
     MemorySize: 128
 
+Parameters:
+  SlackOAuthToken:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: '/notification-slack/oauthtoken'
+  SlackChannel:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: '/notification-slack/channel'
+
 Resources:
-  HelloWorldFunction:
+  NotificationSlackdFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: hello-world/
-      Handler: hello-world
+      CodeUri: notification-slack/
+      Handler: notification-slack
       Runtime: go1.x
       Architectures:
         - x86_64
@@ -28,7 +36,8 @@ Resources:
       #       Method: GET
       Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
         Variables:
-          PARAM1: VALUE
+          SLACK_OAUTH_TOKEN: !Ref SlackOAuthToken
+          SLACK_CHANNEL: !Ref SlackChannel
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
@@ -37,9 +46,9 @@ Outputs:
   # HelloWorldAPI:
   #   Description: "API Gateway endpoint URL for Prod environment for First Function"
   #   Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  HelloWorldFunction:
-    Description: "First Lambda Function ARN"
-    Value: !GetAtt HelloWorldFunction.Arn
-  HelloWorldFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt HelloWorldFunctionRole.Arn
+  NotificationSlackdFunction:
+    Description: "NotificationSlack Lambda Function ARN"
+    Value: !GetAtt NotificationSlackdFunction.Arn
+  NotificationSlackdFunctionIamRole:
+    Description: "Implicit IAM Role created for NotificationSlack function"
+    Value: !GetAtt NotificationSlackdFunctionRole.Arn
